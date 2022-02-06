@@ -6,7 +6,7 @@ const Columns = function(props){
         <tr className="column">
             {
                 data.map((element,index) => {
-                    return <th key={'column_'+index}>{element.data}</th>
+                    return <th key={'column_'+index}>{element.title}</th>
                 })
             }
         </tr>

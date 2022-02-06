@@ -1,4 +1,3 @@
-import { useState } from "react"
 const Row = function(props){
     const {data, columns, autoWidth, index, page = 1} = props
 
