@@ -5,10 +5,10 @@ import { lengthPageContext } from '../../context/lengthPageContext'
 
 import Pagination from '../Pagination'
 
-export default function Navigate({ lengthPage = 0, maxPage }) {
-    const { page, setPage } = useContext(pageContext)
-    const { length, setLength } = useContext(lengthPageContext)
+import './index.css'
 
+export default function Navigate({ maxPage }) {
+    const { page, setPage } = useContext(pageContext)
 
     const previousPage = function()
     {
@@ -22,10 +22,9 @@ export default function Navigate({ lengthPage = 0, maxPage }) {
 
     return (
         <div className='select'>
-            <label htmlFor='nbEntries'>Show</label>
             {
                 page > 1
-                ? <button id='Entries_previous' onClick={() => previousPage()}>{'<<<'}</button>
+                ? <button id='Entries_previous' className='navigate' onClick={() => previousPage()}>Previous</button>
                 : ''
             }
             {
@@ -33,7 +32,7 @@ export default function Navigate({ lengthPage = 0, maxPage }) {
             }
             {
                 page < maxPage
-                ? <button id='Entries_next' onClick={() => nextPage()}>{'>>>'}</button>
+                ? <button id='Entries_next' className='navigate' onClick={() => nextPage()}>Next</button>
                 : ''
             }
       </div>

@@ -3,6 +3,7 @@ import {useContext} from 'react'
 import { pageContext } from '../../context/pageContext'
 import { lengthPageContext } from '../../context/lengthPageContext'
 
+import './index.css'
 
 export default function DropDown({lengthMenu}) {
     const { page, setPage } = useContext(pageContext)
@@ -16,6 +17,7 @@ export default function DropDown({lengthMenu}) {
 
     return (
         <div className='DropDown'>
+            Show &nbsp;
             <select onChange={onChange}>
                 {
                     Array.from(lengthMenu).map((element,index) => {
@@ -30,6 +32,7 @@ export default function DropDown({lengthMenu}) {
                     })
                 }
             </select>
+            &nbsp; entries
         </div>
     )
   }

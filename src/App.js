@@ -7,7 +7,7 @@ import { data, column } from './__test__/data.js'
 const App = function() {
     return (
         <div>
-            <DataTable data={data[1]} columns={column}/>
+            <DataTable data={data} columns={column}/>
         </div>
     )
 }

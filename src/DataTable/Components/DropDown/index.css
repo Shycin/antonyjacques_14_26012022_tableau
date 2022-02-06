@@ -1,0 +1,13 @@
+.DropDown
+{
+    font-weight: normal;
+}
+
+.DropDown select
+{
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: transparent;
+    padding: 4px;
+}

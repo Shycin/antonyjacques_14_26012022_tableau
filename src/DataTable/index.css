@@ -2,3 +2,18 @@ table
 {
     width: 100%;
 }
+
+.flex
+{
+    display: flex;
+}
+
+.flex--between
+{
+    justify-content: space-between;
+}
+
+.mt-1
+{
+    margin-top: 0.5em;
+}

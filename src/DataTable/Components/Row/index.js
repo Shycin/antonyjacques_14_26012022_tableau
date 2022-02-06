@@ -33,7 +33,6 @@ const Row = function(props){
         <tr className="row">
             {
                 Array.from(re_order_Object()).map((element,index) => {
-
                     var width = null
                     if(autoWidth) width = columns[index].width
 

@@ -1,9 +1,10 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect, useRef } from 'react'
 
 import Row from './Components/Row'
 import Columns from './Components/Columns'
 import Navigate from './Components/Navigate'
 import DropDown from './Components/DropDown'
+// import Search from './Components/Search'
 
 import { pageContext } from './context/pageContext'
 import { lengthPageContext } from './context/lengthPageContext'
@@ -34,31 +35,49 @@ const DataTable = function({
     columnDefs = [],
     lengthMenu = [10,25,50,100]
 }){
+    const data_array = Array.from(data)
+    const array_length = data_array.length
+
+    const first_length = lengthMenu[0]
+    const first_page = 1
+
+
+
     const { length, setLength } = useContext(lengthPageContext)
     const { page, setPage } = useContext(pageContext)
-    const [ itemDisplay, setItemDisplay ] = useState([])
+    const [ itemDisplay, setItemDisplay ] = useState(data_array.slice(first_length*(first_page-1), first_length*first_page))
 
-    useEffect(() => {
-        const new_array = Array.from(data).slice(length*(page-1), length*page)
-        setItemDisplay(new_array);
-    },[length,page])
+    const [ MaxPagePaginate , setMaxPagePaginate ] = useState(Math.ceil(array_length/first_length))
 
-    useEffect(() => {
-        console.log(itemDisplay)
-    },[itemDisplay])
+    const [ minIndex , setMinIndex ] = useState(0);
+    const [ maxIndex , setMaxIndex ] = useState(0);
 
     useEffect(() => {
         setLength(lengthMenu[0])
+        setPage(1)
     },[])
+
+    useEffect(() => {
+        const new_array = data_array.slice(length*(page-1), length*page)
+
+        setItemDisplay(new_array);
+    },[length, page])
+
 
     return (
         <div id="DataTable">
             <table>
                 <tbody>
-                    <tr><th><DropDown lengthMenu={lengthMenu}/></th></tr>
-                    <Columns key={'column_1'} data={columns}/>
+                    <tr>
+                        <th colSpan={columns.length}>
+                            <div className='flex flex--between mt-1'>
+                                <DropDown lengthMenu={lengthMenu}/>
+                                {/* <Search /> */}
+                            </div>
+                        </th>
+                    </tr>
+                    <Columns data={columns}/>
                     {
-                        itemDisplay ?
                         itemDisplay.map((element,index) => {
                             return <Row 
                                 key={'line_'+index} 
@@ -68,9 +87,17 @@ const DataTable = function({
                                 autoWidth={autoWidth} 
                                 lengthMenu={lengthMenu}/>
                         })
-                        : null
                     }
-                    <tr><th><Navigate lengthPage={length} maxPage={Math.ceil(Array.from(data).length/length)}/></th></tr>
+                    <tr>
+                        <th colSpan={columns.length}>
+                            <div className='flex flex--between mt-1'>
+                                <div>
+                                    Showing {((length*(page-1)) + 1)} to {length*page < array_length ? length*page : array_length} of {array_length} entries
+                                </div>
+                                <Navigate maxPage={Math.ceil(array_length/length)}/>
+                            </div>
+                        </th>
+                    </tr>
                 </tbody>   
             </table>  
         </div>
