@@ -1,5 +1,6 @@
+import React from "react"
 const Row = function(props){
-    const {data, columns, autoWidth, index, page = 1} = props
+    const {data, columns, index, page = 1} = props
 
     const re_order_Object = function() {
 
@@ -32,19 +33,7 @@ const Row = function(props){
         <tr className="row">
             {
                 Array.from(re_order_Object()).map((element,index) => {
-                    var width = null
-                    if(autoWidth) width = columns[index].width
-
-                    const column_style = {
-                        width,
-                    };
-
-                    if(element.display)
-                    {
-                        return <td key={'row_'+index} style={column_style}>{element.display}</td>
-                    }
-
-                    return <td key={'row_'+index} style={column_style}>{element}</td>
+                    return <td key={'row_'+index}>{element}</td>
                 })
             }
         </tr>

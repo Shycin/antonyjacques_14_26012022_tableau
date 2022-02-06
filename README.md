@@ -1,4 +1,5 @@
-# simple-component-library
-A library of React components created using `create-react-app`.## Installation
-Run the following command:
-`npm install simple-component-library`
+# DataTable component
+## Install
+Run the following command: `npm install shycin-table-react`
+## Why using this component
+This is a light React component replace the current [JQuery DataTable](https://datatables.net/) with minimun functionnality but better performance

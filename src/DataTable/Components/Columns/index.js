@@ -1,3 +1,4 @@
+import React from 'react'
 import {order_up, order_down} from './assets/svg'
 import './assets/index.css'
 

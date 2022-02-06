@@ -1,4 +1,5 @@
-import { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
+import PropTypes from 'prop-types'
 
 import Row from './Components/Row'
 import Columns from './Components/Columns'
@@ -11,8 +12,17 @@ import { lengthPageContext } from './context/lengthPageContext'
 
 import './index.css'
 
+/**
+ * Create a Table of data
+ * @module Table
+ * @component
+ * @param {object} props
+ * @prop {array} props.columns Array of obelect with columns's information like : { index:'column-index', label:'the name of column'}
+ * @prop {array} props.data Array of data to show by line
+ * @prop {array} props.lengthMenu Number of element per page. Each key have to correspond with an index to an element of cols's props.
+ **/
+
 const DataTable = function({
-    autoWidth = true,
     data = [],
     columns = [],
     lengthMenu = [10,25,50,100]
@@ -56,8 +66,6 @@ const DataTable = function({
     },[])
 
     useEffect(() => {
-        //console.log(sort, sort.sort, sort.direction)
-
         if(search)
         {
             const new_array = onSort(sort).filter((item) => 
@@ -111,7 +119,6 @@ const DataTable = function({
                                 index={index}
                                 columns={columns} 
                                 data={element} 
-                                autoWidth={autoWidth} 
                                 lengthMenu={lengthMenu}/>
                         })
                     }
@@ -119,7 +126,7 @@ const DataTable = function({
                         <th colSpan={columns.length}>
                             <div className='flex flex--between mt-1'>
                                 <div>
-                                    Showing {((length*(page-1)) + 1)} to {length*page < itemDisplay.length ? length*page : itemDisplay.length} of {searchArray.length} entries
+                                    Showing {((length*(page-1)) + 1)} to {length*page < searchArray.length ? length*page : searchArray.length} of {searchArray.length} entries
                                 </div>
                                 <Navigate maxPage={Math.ceil(searchArray.length/length)}/>
                             </div>
@@ -132,3 +139,14 @@ const DataTable = function({
 }
 
 export default DataTable
+
+DataTable.propTypes = {
+    columns: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string,
+        data: PropTypes.string,
+      })
+    ).isRequired,
+    data: PropTypes.array.isRequired,
+    lengthMenu: PropTypes.array
+}

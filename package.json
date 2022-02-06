@@ -1,26 +1,26 @@
 {
-  "name": "table-react--icya",
-  "version": "0.1.2",
+  "name": "shycin-table-react",
+  "version": "0.1.4",
   "main": "dist/index.js",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
-    "table-react--icy": "^0.1.2",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "babel-core": "^6.26.3",
+    "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
-    "compile": "babel src -d dist --copy-files",
-    "build": "babel src/TextInput --out-dir dist --copy-files --ignore __tests__,__test__,spec.js,test.js,app.js,__snapshots__",
+    "compile": "babel src/DataTable -d dist --copy-files",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -1,0 +1,24 @@
+.column
+{
+    display: flex;
+    gap: 5px;
+}
+
+.column__title
+{
+    display: flex;
+    gap: 5px;
+}
+
+.column__order
+{
+    display: flex;
+    position: relative;
+    width: 10px;
+    cursor: pointer;
+}
+
+.column__order__item
+{
+    position: absolute;
+}

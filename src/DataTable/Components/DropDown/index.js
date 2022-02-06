@@ -1,4 +1,4 @@
-import {useContext} from 'react'
+import React, {useContext} from 'react'
  
 import { pageContext } from '../../context/pageContext'
 import { lengthPageContext } from '../../context/lengthPageContext'
@@ -23,7 +23,7 @@ export default function DropDown({lengthMenu}) {
                     Array.from(lengthMenu).map((element,index) => {
                         if(element === length)
                         {
-                            return <option key={index} selected>{element}</option>
+                            return <option key={index} defaultValue>{element}</option>
                         }
                         else
                         {

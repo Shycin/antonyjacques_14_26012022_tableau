@@ -1,10 +1,8 @@
-// import TextInput from "./TextInput";
-// export default TextInput
-
 import React from "react";
 import ReactDOM from "react-dom";
 
 import App from './App.js'
+export default App
 
 ReactDOM.render(
     <App />
