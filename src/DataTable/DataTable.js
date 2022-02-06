@@ -29,6 +29,25 @@ const DataTable = function({
     const [ itemDisplay, setItemDisplay ] = useState(data_array.slice(first_length*(first_page-1), first_length*first_page))
     const [ search, setSearch ] = useState(null)
     const [ searchArray, setSearchArray ] = useState([])
+    const [ sort, setSort ] = useState({key: null, direction: 1})
+
+
+    const onSort = () => {
+        var new_array = data_array
+        
+        if(sort.key)
+        {
+            const key = sort.key
+            const direction = sort.direction
+
+            new_array = data_array.sort(
+                (a, b) => direction * ((a[key] > b[key]) - (b[key] > a[key]))
+            )
+        }
+        
+        return new_array
+    }
+
 
 
     useEffect(() => {
@@ -37,10 +56,11 @@ const DataTable = function({
     },[])
 
     useEffect(() => {
+        //console.log(sort, sort.sort, sort.direction)
 
         if(search)
         {
-            const new_array = data_array.filter((item) => 
+            const new_array = onSort(sort).filter((item) => 
                 JSON.stringify(item).toLowerCase().includes(search.toLowerCase())
             )
 
@@ -49,13 +69,13 @@ const DataTable = function({
         }
         else
         {
-            const new_array = data_array.slice(length*(page-1), length*page)
+            const new_array = onSort(sort)
     
             setSearchArray(data_array)
-            setItemDisplay(new_array);
+            setItemDisplay(new_array.slice(length*(page-1), length*page));
         }
         
-    },[length, page, search])
+    },[length, page, search, sort])
 
 
     const onSearch = (value) => {
@@ -67,10 +87,10 @@ const DataTable = function({
         {
             setSearch(null)
         }
-            
+
+        setPage(1)       
     }
-
-
+    
     return (
         <div id="DataTable">
             <table>
@@ -83,7 +103,7 @@ const DataTable = function({
                             </div>
                         </th>
                     </tr>
-                    <Columns data={columns}/>
+                    <Columns data={columns} sort={sort} setSort={setSort}/>
                     {
                         itemDisplay.map((element,index) => {
                             return <Row 
@@ -99,7 +119,7 @@ const DataTable = function({
                         <th colSpan={columns.length}>
                             <div className='flex flex--between mt-1'>
                                 <div>
-                                    Showing {((length*(page-1)) + 1)} to {length*page < itemDisplay.length ? length*page : itemDisplay.length} of {itemDisplay.length} entries
+                                    Showing {((length*(page-1)) + 1)} to {length*page < itemDisplay.length ? length*page : itemDisplay.length} of {searchArray.length} entries
                                 </div>
                                 <Navigate maxPage={Math.ceil(searchArray.length/length)}/>
                             </div>
