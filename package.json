@@ -1,6 +1,6 @@
 {
   "name": "shycin-table-react",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "main": "dist/index.js",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",

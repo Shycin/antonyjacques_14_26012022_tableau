@@ -96,15 +96,26 @@ var DataTable = function DataTable(_ref) {
       sort = _useState8[0],
       setSort = _useState8[1];
 
+  var isDate = function isDate(value) {
+    return !isNaN(Date.parse(value));
+  };
+
   var onSort = function onSort() {
     var new_array = data_array;
 
     if (sort.key) {
       var key = sort.key;
       var direction = sort.direction;
-      new_array = data_array.sort(function (a, b) {
-        return direction * ((a[key] > b[key]) - (b[key] > a[key]));
-      });
+
+      if (isDate(data_array[0][key])) {
+        new_array = data_array.sort(function (a, b) {
+          return direction * ((new Date(a[key]) > new Date(b[key])) - (new Date(b[key]) > new Date(a[key])));
+        });
+      } else {
+        new_array = data_array.sort(function (a, b) {
+          return direction * ((a[key] > b[key]) - (b[key] > a[key]));
+        });
+      }
     }
 
     return new_array;

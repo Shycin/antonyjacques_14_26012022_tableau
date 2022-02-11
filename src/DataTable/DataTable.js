@@ -41,6 +41,9 @@ const DataTable = function({
     const [ searchArray, setSearchArray ] = useState([])
     const [ sort, setSort ] = useState({key: null, direction: 1})
 
+    const isDate = (value) => {
+        return !isNaN(Date.parse(value))
+    }
 
     const onSort = () => {
         var new_array = data_array
@@ -50,9 +53,21 @@ const DataTable = function({
             const key = sort.key
             const direction = sort.direction
 
-            new_array = data_array.sort(
-                (a, b) => direction * ((a[key] > b[key]) - (b[key] > a[key]))
-            )
+            if(isDate(data_array[0][key])) 
+            {
+                new_array = data_array.sort(
+                    (a, b) =>
+                        direction *
+                            ((new Date(a[key]) > new Date(b[key])) -
+                            (new Date(b[key]) > new Date(a[key])))
+                )
+            }
+            else
+            {
+                new_array = data_array.sort(
+                    (a, b) => direction * ((a[key] > b[key]) - (b[key] > a[key]))
+                )
+            } 
         }
         
         return new_array
